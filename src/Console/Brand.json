@@ -1,0 +1,28 @@
+{
+    "model": "Brand",
+    "tableName": "brands",
+    "hasImages": true,
+    "columns": [
+        {
+            "name": "name",
+            "type": "string",
+            "db": {
+                "type": "string"
+            },
+            "validation": "required",
+            "lang": true
+        }
+    ],
+    "metaColumns": [
+        {
+            "name": "sold_count",
+            "type": "integer",
+            "db": {
+                "type": "unsignedInteger",
+                "default": 0
+            },
+            "validation": "required|integer",
+            "lang": false
+        }
+    ]
+}

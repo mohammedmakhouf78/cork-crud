@@ -1,0 +1,25 @@
+{
+    "name": "mohammedmakhlouf78/corkcrud",
+    "autoload": {
+        "psr-4": {
+            "Mohammedmakhlouf78\\CorkCrud\\": "src/",
+            "Mohammedmakhlouf78\\CorkCrud\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mohammedmakhlouf78",
+            "email": "mohammedmakhlouf78@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^6.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mohammedmakhlouf78\\CorkCrud\\MMCorkCrudServiceProvider"
+            ]
+        }
+    }
+}

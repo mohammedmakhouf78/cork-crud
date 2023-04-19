@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+
+use App\Models\{model};
+use Illuminate\Routing\Controller;
+{image_namespace}
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\{model}\StoreRequest;
+use App\Http\Requests\{model}\UpdateRequest;
+
+class {model}Controller extends Controller
+{
+    public function __construct({image_service_injection})
+    {
+    }
+
+    public function index()
+    {
+        return view("admin.pages.{model_lower}.index");
+    }
+
+    public function create()
+    {
+        return view('admin.pages.{model_lower}.create');
+    }
+
+    public function store(StoreRequest $request)
+    {
+        {store}
+
+        Alert::success(trans('{model_lower} stored successfully'));
+        return redirect(route('admin.{model_lower}.index'));
+    }
+
+    public function edit({model} ${model_lower})
+    {
+        return view('admin.pages.{model_lower}.edit', compact('{model_lower}'));
+    }
+
+    public function update(UpdateRequest $request, {model} ${model_lower})
+    {
+        {update}
+
+        Alert::success(trans('{model_lower} updated successfully'));
+        return redirect(route('admin.{model_lower}.index'));
+    }
+
+    public function destroy({model} ${model_lower})
+    {
+        {delete}
+
+        Alert::success(trans('{model_lower} deleted successfully'));
+        return redirect(route('admin.{model_lower}.index'));
+    }
+}
