@@ -72,6 +72,6 @@ class ModelService
 
     public function putInFile()
     {
-        File::put(base_path("App/Models{$this->model}.php"), $this->stub);
+        File::put(base_path("app/Models{$this->model}.php"), $this->stub);
     }
 }

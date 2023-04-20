@@ -72,6 +72,6 @@ class MigrationService
     {
         $migrationName = date("Y_m_d_His") . "_create_" . $this->tableName . "_table.php";
 
-        File::put(base_path("Database/Migrations/$migrationName"), $this->stub);
+        File::put(base_path("database/Migrations/$migrationName"), $this->stub);
     }
 }

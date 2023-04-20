@@ -1,0 +1,1 @@
+php artisan vendor:publish --provider="Mohammedmakhlouf78\CorkCrud\MMCorkCrudServiceProvider" --tag="config"

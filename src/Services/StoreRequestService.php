@@ -53,10 +53,10 @@ class StoreRequestService
 
     public function putInFile()
     {
-        if (!file_exists(base_path("App/Http/Requests/{$this->model}"))) {
-            mkdir(base_path("App/Http/Requests/{$this->model}"), 0777, true);
+        if (!file_exists(base_path("app/Http/Requests/{$this->model}"))) {
+            mkdir(base_path("app/Http/Requests/{$this->model}"), 0777, true);
         }
 
-        File::put(base_path("App/Http/Requests/{$this->model}/StoreRequest.php"), $this->stub);
+        File::put(base_path("app/Http/Requests/{$this->model}/StoreRequest.php"), $this->stub);
     }
 }
