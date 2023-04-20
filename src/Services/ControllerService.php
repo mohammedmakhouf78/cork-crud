@@ -4,35 +4,12 @@ namespace Mohammedmakhlouf78\CorkCrud\Services;
 
 use Illuminate\Support\Facades\File;
 
-class ControllerService
+class ControllerService extends AbstractParent
 {
-    private $stub;
-    private $model;
-    private $modelLower;
-
-    private $hasImage = false;
-    private $columns;
-
-    public function run(string $model, object $crudInfo)
-    {
-        $this->model = $model;
-        $this->modelLower = lcfirst($this->model);
-        $this->hasImage = $crudInfo->hasImages;
-        $this->columns = $crudInfo->columns;
-
-        $this->prepareStub();
-        $this->putInFile();
-    }
-
     public function runStub()
     {
         $this->stub = File::get(__DIR__ . "/../Console/stubs/Controller.php.stub");
         return $this->stub;
-    }
-
-    public function setStub($stub)
-    {
-        $this->stub = $stub;
     }
 
     public function prepareStub()
