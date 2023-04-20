@@ -50,6 +50,6 @@ class ModelService extends AbstractParent
 
     public function putInFile()
     {
-        File::put(base_path("app/Models{$this->model}.php"), $this->stub);
+        File::put(base_path("app/Models/{$this->model}.php"), $this->stub);
     }
 }
