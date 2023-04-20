@@ -11,6 +11,15 @@
             },
             "validation": "required",
             "lang": true
+        },
+        {
+            "name": "avatar",
+            "type": "image",
+            "db": {
+                "type": "text"
+            },
+            "validation": "nullable|image|mimes:png,jpg,jpeg,webp,fav,svg|max:2048",
+            "lang": false
         }
     ],
     "metaColumns": [

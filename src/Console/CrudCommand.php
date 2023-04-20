@@ -6,7 +6,16 @@ namespace Mohammedmakhlouf78\CorkCrud\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Mohammedmakhlouf78\CorkCrud\Services\ControllerService;
+use Mohammedmakhlouf78\CorkCrud\Services\CreateViewService;
+use Mohammedmakhlouf78\CorkCrud\Services\DataTableService;
+use Mohammedmakhlouf78\CorkCrud\Services\EditViewService;
+use Mohammedmakhlouf78\CorkCrud\Services\IndexViewService;
 use Mohammedmakhlouf78\CorkCrud\Services\Main;
+use Mohammedmakhlouf78\CorkCrud\Services\MigrationService;
+use Mohammedmakhlouf78\CorkCrud\Services\ModelService;
+use Mohammedmakhlouf78\CorkCrud\Services\RouteService;
+use Mohammedmakhlouf78\CorkCrud\Services\StoreRequestService;
+use Mohammedmakhlouf78\CorkCrud\Services\UpdateRequestService;
 
 class CrudCommand extends Command
 {
@@ -23,117 +32,18 @@ class CrudCommand extends Command
 
 
         $main->run($this->model, $crudInfo, [
-            'controller' => ControllerService::class
+            'controller' => ControllerService::class,
+            'model' => ModelService::class,
+            'migration' => MigrationService::class,
+            'storeRequest' => StoreRequestService::class,
+            'updateRequest' => UpdateRequestService::class,
+            'indexView' => IndexViewService::class,
+            'editView' => EditViewService::class,
+            'createView' => CreateViewService::class,
+            'dataTable' => DataTableService::class,
+            'route' => RouteService::class,
         ]);
-
-        // dump($stub);
-        // dd($crudInfo);
 
         $this->info("Done Babhy !!!!");
     }
-
-    private function handelController($stub)
-    {
-        // image service injection
-        if ($this->hasImage) {
-            $imageServiceNS = config('corkcrud.image_service_fully_qualified_class_name');
-            $imageServiceClass = config('corkcrud.image_service_class_name');
-            $imageServiceName = lcfirst($imageServiceClass);
-
-            $stub = str_replace("{image_namespace}", $imageServiceNS, $stub);
-            $stub = str_replace("{image_service_injection}", "private {$imageServiceClass} \${$imageServiceName}", $stub);
-        }
-
-
-
-
-        //store
-        $storeData = "";
-        $imageStoreData = "";
-        $columnsStoreData = "";
-        foreach ($this->columns as $column) {
-            if ($column->type == "image") {
-                $columnNameUpper = strtoupper($column->name);
-                $imageStoreData .= "$$column->name = \$this->{$imageServiceName}->uploadImage(\$request->file('$column->name'), $this->model::{$columnNameUpper}_PATH);\n";
-
-                $columnsStoreData .= "'$column->name' => $$column->name,\n";
-            } else if ($column->lang == true) {
-                $columnsStoreData .= "'$column->name' => [
-                    'en' => \$request->{$column->name}_en,
-                    'ar' => \$request->{$column->name}_ar
-                 ],\n";
-            } else {
-                $columnsStoreData .= "'$column->name' => \$request->{$column->name},\n";
-            }
-        }
-        $storeData .= $imageStoreData . "\n";
-        $storeData .= "$this->model::create([
-            $columnsStoreData
-        ]);";
-
-
-
-
-
-        $updateData = "";
-        $imagesUpdateData = "";
-        $columnsUpdateData = "";
-        foreach ($this->columns as $column) {
-            if ($column->type == "image") {
-                $columnNameCapital = ucwords($column->name);
-                $columnNameUpper = strtoupper($column->name);
-                $imagesUpdateData .= "\$$column->name = \${$this->modelLower}->getRawOriginal('$column->name');
-
-                if (\$request->file('$column->name')) {
-                    \$this->imageService->deleteImage(path: \${$this->modelLower}->get{$columnNameCapital}Path());
-        
-                    \$$column->name = \$this->imageService->uploadImage(
-                        imageObject: \$request->file('$column->name'),
-                        path: $this->model::{$columnNameUpper}_PATH
-                    );
-                } \n";
-
-                $columnsUpdateData .= "'$column->name' => $$column->name,\n";
-            } else if ($column->lang == true) {
-                $columnsUpdateData .= "'$column->name' => [
-                    'en' => \$request->{$column->name}_en,
-                    'ar' => \$request->{$column->name}_ar
-                 ],\n";
-            } else {
-                $columnsUpdateData .= "'$column->name' => \$request->{$column->name},\n";
-            }
-        }
-        $updateData .= $imagesUpdateData . "\n";
-        $updateData .= "\${$this->modelLower}->update([
-            $columnsUpdateData
-        ]);";
-
-
-
-        $deleteData = "";
-        foreach ($this->columns as $column) {
-            if ($column->type == "image") {
-                $columnNameCapital = ucwords($column->name);
-                $deleteData .= "\$this->imageService->deleteImage(path: \${$this->modelLower}->get{$columnNameCapital}Path());\n";
-            }
-        }
-        $deleteData .= "\${$this->modelLower}->delete();";
-
-
-        $stub = str_replace("{store}", $storeData, $stub);
-        $stub = str_replace("{update}", $updateData, $stub);
-        $stub = str_replace("{delete}", $deleteData, $stub);
-
-        dd($stub);
-    }
-
-    private function replaceStuff($stub)
-    {
-        $stub = str_replace("{model}", $this->model, $stub);
-        $stub = str_replace("{model_lower}", $this->modelLower, $stub);
-        return $stub;
-    }
-
-    // use App\Http\Services\ImageService;
-    // private ImageService $imageService
 }

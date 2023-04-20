@@ -1,0 +1,38 @@
+@extends('admin.master')
+
+@section('title')
+    {{ trans('{model_lower}') }}
+@endsection
+
+@push('css')
+    
+@endpush
+
+
+@section('breadcrumb')
+
+<nav class="breadcrumb-style-one my-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('admin.home')}}"> {{ trans('main') }} </a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{ trans('{model_lower} table') }} </li>
+    </ol>
+</nav>
+
+@endsection
+
+@section('content')
+    <div class="text-center w-100">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="my-3 text-start">
+                    <a href="{{route('admin.{model_lower}.create')}}" class="btn btn-primary">{{ trans('create') }}</a>
+                </div>
+                <livewire:admin.{model_lower}-datatable />
+            </div>
+        </div>
+
+    </div>
+@endsection
+
+@push('js')
+@endpush

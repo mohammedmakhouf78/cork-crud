@@ -20,7 +20,8 @@ class ControllerService
         $this->hasImage = $crudInfo->hasImages;
         $this->columns = $crudInfo->columns;
 
-        $this->handle();
+        $this->prepareStub();
+        $this->putInFile();
     }
 
     public function runStub()
@@ -34,7 +35,7 @@ class ControllerService
         $this->stub = $stub;
     }
 
-    public function handle()
+    public function prepareStub()
     {
         if ($this->hasImage) {
             $imageServiceNS = config('corkcrud.image_service_fully_qualified_class_name');
@@ -44,7 +45,6 @@ class ControllerService
             $this->stub = str_replace("{image_namespace}", $imageServiceNS, $this->stub);
             $this->stub = str_replace("{image_service_injection}", "private {$imageServiceClass} \${$imageServiceName}", $this->stub);
         }
-
 
 
 
@@ -124,5 +124,10 @@ class ControllerService
         $this->stub = str_replace("{store}", $storeData, $this->stub);
         $this->stub = str_replace("{update}", $updateData, $this->stub);
         $this->stub = str_replace("{delete}", $deleteData, $this->stub);
+    }
+
+    public function putInFile()
+    {
+        File::put(base_path("App/Http/Controllers/Admin/{$this->model}Controller.php"), $this->stub);
     }
 }

@@ -1,0 +1,21 @@
+const {columnName_upper}_PATH = 'images/{model_lower}/{columnName}/';
+
+protected function {columnName}(): Attribute
+{
+    return Attribute::make(
+        get: function (${columnName}) {
+            if (${columnName} && file_exists($this->get{columnName_capital}Path())) {
+                return asset({model_capital}::{columnName_upper}_PATH . ${columnName});
+            }
+            return '';
+        },
+    );
+}
+
+function get{columnName_capital}Path()
+{
+    if ($this->getRawOriginal('{columnName}')) {
+        return public_path({model_capital}::{columnName_upper}_PATH . $this->getRawOriginal('{columnName}'));
+    }
+    return '';
+}

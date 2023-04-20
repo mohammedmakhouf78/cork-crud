@@ -1,0 +1,58 @@
+@extends('admin.master')
+
+@section('title')
+    {{ trans('{model_lower}') }}
+@endsection
+
+@push('css')
+    
+@endpush
+
+
+
+@section('breadcrumb')
+<nav class="breadcrumb-style-one my-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{route('admin.home')}}"> {{ trans('home') }} </a></li>
+        <li class="breadcrumb-item"><a href="{{route('admin.{model_lower}.index')}}"> {{ trans('{model_lower} table') }} </a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{ trans('edit {model_lower}') }} </li>
+    </ol>
+</nav>
+@endsection
+
+
+
+@section('content')
+    <div class="text-center w-100">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div id="tableSimple" class="col-lg-12 col-12 layout-spacing">
+                    <div class="statbox widget box box-shadow">
+                        <div class="widget-header bg-primary">
+                            <div class="row">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                    <h4>{{ trans('edit {model_lower}') }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget-content widget-content-area">
+                            <form method="POST" action="{{route('admin.{model_lower}.update', ${model_lower})}}" {enctype}>
+                                @csrf
+                                @method('PUT')
+
+
+                                {inputs}
+
+
+                                <input type="submit" value="{{trans('submit')}}" name="time" class="btn btn-primary">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('js')
+@endpush

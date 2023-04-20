@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Livewire\Admin;
+
+use App\Http\Livewire\DatatableComponent;
+use App\Models\{model};
+
+class {model}Datatable extends DatatableComponent
+{
+    public $title = "{model}";
+    public $tableName = "{model_lower}";
+
+    public function mount()
+    {
+        $this->columns = $this->getColumns();
+    }
+
+    private function getData()
+    {
+        return {model}::select([{select}]);
+    }
+
+    public function render()
+    {
+        $data = $this->getData();
+
+        $this->prepareData($data);
+
+        return view('livewire.datatable', [
+            'data' => $data->paginate(10)
+        ]);
+    }
+
+    private function getColumns()
+    {
+        return {columns};
+    }
+}
