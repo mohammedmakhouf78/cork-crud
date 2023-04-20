@@ -128,6 +128,6 @@ class ControllerService
 
     public function putInFile()
     {
-        File::put(base_path("App/Http/Controllers/Admin/{$this->model}Controller.php"), $this->stub);
+        File::put(base_path(config('corkcrud.controllers_path') . "/{$this->model}Controller.php"), $this->stub);
     }
 }
