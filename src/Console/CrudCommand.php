@@ -28,7 +28,7 @@ class CrudCommand extends Command
     public function handle(Main $main)
     {
         $this->model = $this->argument('name');
-        $crudInfo = json_decode(File::get(__DIR__ . "/{$this->model}.json"));
+        $crudInfo = json_decode(File::get(config('corkcrud.json_files_directory') . "/{$this->model}.json"));
 
 
         $main->run($this->model, $crudInfo, [
