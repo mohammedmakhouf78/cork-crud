@@ -107,7 +107,7 @@ class ControllerService extends AbstractParent
             $relationModel = ucfirst($relationVariable);
             $modelsNamespace = config('corkcrud.models_name_space');
 
-            $relationData .= "\${$relationVariable}Collection = $modelsNamespace\\$relationModel::forSelect()->get();\n";
+            $relationData .= "\${$relationVariable}Collection = \\$modelsNamespace\\$relationModel::forSelect()->get();\n";
             $compact .= "'{$relationVariable}Collection',";
         }
         $compact = rtrim($compact, ",");
