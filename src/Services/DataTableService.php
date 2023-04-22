@@ -57,18 +57,6 @@ class DataTableService extends AbstractParent
                     'lang' => $column->lang ?? false
                 ];
             }
-
-
-            $columnsData[] = [
-                'name' => $column->name,
-                'title' => "trans('$column->name')",
-                'orderable' => $column->type == "image" ? false : true,
-                'searchable' => $column->type == "image" ? false : true,
-                'exact' => false,
-                'search' => '',
-                'type' => $column->type,
-                'lang' => $column->lang ?? false
-            ];
         }
 
 
