@@ -20,6 +20,38 @@
             },
             "validation": "nullable|image|mimes:png,jpg,jpeg,webp,fav,svg|max:2048",
             "lang": false
+        },
+        {
+            "name": "color_id",
+            "type": "select",
+            "selectVal": "id",
+            "selectDis": "name",
+            "db": {
+                "type": "unsignedBigInteger"
+            },
+            "validation": "required",
+            "lang": false
+        },
+        {
+            "name": "product_color_id",
+            "type": "select",
+            "selectVal": "id",
+            "selectDis": "name",
+            "db": {
+                "type": "unsignedBigInteger"
+            },
+            "validation": "required",
+            "lang": false
+        }
+    ],
+    "relations": [
+        {
+            "name": "product_color_id",
+            "table": "productColors"
+        },
+        {
+            "name": "size_id",
+            "table": "sizes"
         }
     ],
     "metaColumns": [

@@ -17,7 +17,7 @@ class {model}Datatable extends DatatableComponent
 
     private function getData()
     {
-        return {model}::select([{select}]);
+        return {model}::select([{select}]){with};
     }
 
     public function render()

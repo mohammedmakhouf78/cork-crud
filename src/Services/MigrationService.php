@@ -37,8 +37,19 @@ class MigrationService extends AbstractParent
             $columnsData .= ";\n";
         }
 
+        $relationsData = "";
+        foreach ($this->relations as $relation) {
+            $relationsData .= <<<END
+                \$table->foreign('$relation->name')
+                    ->references('id')
+                    ->on('sizes')
+                    ->onDelete('CASCADE');\n
+            END;
+        }
+
         $this->stub = str_replace("{tableName}", $this->tableName, $this->stub);
         $this->stub = str_replace("{columns}", $columnsData, $this->stub);
+        $this->stub = str_replace("{relations}", $relationsData, $this->stub);
     }
 
     public function putInFile()

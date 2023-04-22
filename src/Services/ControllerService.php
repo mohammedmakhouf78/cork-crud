@@ -98,9 +98,26 @@ class ControllerService extends AbstractParent
         $deleteData .= "\${$this->modelLower}->delete();";
 
 
+
+
+        $relationData = "";
+        $compact = "";
+        foreach ($this->relations as $relation) {
+            $relationVariable = $this->prepareRelationName($relation->name);
+            $relationModel = ucfirst($relationVariable);
+            $modelsNamespace = config('corkcrud.models_name_space');
+
+            $relationData .= "\${$relationVariable}Collection = $modelsNamespace\\$relationModel::forSelect()->get();\n";
+            $compact .= "'{$relationVariable}Collection',";
+        }
+        $compact = rtrim($compact, ",");
+
+
         $this->stub = str_replace("{store}", $storeData, $this->stub);
         $this->stub = str_replace("{update}", $updateData, $this->stub);
         $this->stub = str_replace("{delete}", $deleteData, $this->stub);
+        $this->stub = str_replace("{relation}", $relationData, $this->stub);
+        $this->stub = str_replace("{compact}", $compact, $this->stub);
     }
 
     public function putInFile()

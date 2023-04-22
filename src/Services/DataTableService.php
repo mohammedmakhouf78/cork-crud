@@ -29,9 +29,37 @@ class DataTableService extends AbstractParent
         ];
         foreach ($this->columns as $column) {
             $selectData[] = $column->name;
+
+            if ($column->type == "select") {
+                $relationName = $this->prepareRelationName($column->name);
+                $columnsData[] = [
+                    'name' => $column->name,
+                    'title' => "trans('$column->name')",
+                    'orderable' => $column->type == "image" ? false : true,
+                    'searchable' => $column->type == "image" ? false : true,
+                    'exact' => false,
+                    'search' => '',
+                    'lang' => $column->lang ?? false,
+                    'type' => 'custom',
+                    'view' => "admin.pages.{$this->modelLower}.datatable.{$relationName}"
+                ];
+            } else {
+                $columnsData[] = [
+                    'name' => $column->name,
+                    'title' => "trans('$column->name')",
+                    'orderable' => $column->type == "image" ? false : true,
+                    'searchable' => $column->type == "image" ? false : true,
+                    'exact' => false,
+                    'search' => '',
+                    'type' => $column->type,
+                    'lang' => $column->lang ?? false
+                ];
+            }
+
+
             $columnsData[] = [
                 'name' => $column->name,
-                'title' => trans('main.' . $column->name),
+                'title' => "'trans(\"$column->name\")'",
                 'orderable' => $column->type == "image" ? false : true,
                 'searchable' => $column->type == "image" ? false : true,
                 'exact' => false,
@@ -40,6 +68,18 @@ class DataTableService extends AbstractParent
                 'lang' => $column->lang ?? false
             ];
         }
+
+
+        $withData = "";
+        if ($this->relations) {
+            $withData .= "->with([";
+            foreach ($this->relations as $relation) {
+                $withData .= "'$relation->name',";
+            }
+            $withData = rtrim($withData, ',');
+            $withData .= "]);";
+        }
+
 
         $columnsData[] =  [
             'name' => 'edit',
@@ -55,14 +95,15 @@ class DataTableService extends AbstractParent
 
         $columnsData = var_export($columnsData, true);
 
-        foreach ($this->columns as $column) {
-            $columnsData = str_replace("'main.$column->name'", "trans(\"main.$column->name\")", $columnsData);
-        }
+        // foreach ($this->columns as $column) {
+        //     $columnsData = str_replace("'main.$column->name'", "trans(\"main.$column->name\")", $columnsData);
+        // }
 
 
 
         $this->stub = str_replace("{select}", "'" . join("', '", $selectData) . "'", $this->stub);
         $this->stub = str_replace("{columns}", $columnsData, $this->stub);
+        $this->stub = str_replace("{with}", $withData, $this->stub);
     }
 
     public function putInFile()

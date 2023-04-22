@@ -70,12 +70,22 @@ class CreateViewService extends AbstractParent
                     </div>\n
                 END;
             } else if ($column->type == "select") {
+                $relationVariable = $this->prepareRelationName($column->name);
+                $selectVal = $column->selectVal ?? 'id';
+                $selectDis = $column->selectDis ?? 'name';
+
                 $createFields .= <<<END
                     <div class="row mb-4">
                         <div class="col">
                             <label>{{ trans('main.{$column->name}') }}</label>
                             <select class="form-control" name="$column->name">
                                 <option value=""> </option>
+                                @foreach(\${$relationVariable}Collection as \${$relationVariable})
+                                <option value="{{ \${$relationVariable}->$selectVal }}" 
+                                {{old('$column->name') ==  \${$relationVariable}->$selectVal : "selected" : "" }}> 
+                                    {{ \${$relationVariable}->$selectDis }}
+                                </option>
+                                @endforeach
                             </select>
                             @error('$column->name')
                                 <p class="text-danger my-1">{{\$message}}</p>
@@ -99,6 +109,8 @@ class CreateViewService extends AbstractParent
         $this->stub = str_replace("{model_lower}", $this->modelLower, $this->stub);
         $this->stub = str_replace("{inputs}", $createFields, $this->stub);
         $this->stub = str_replace("{enctype}", $this->hasImage ? 'enctype="multipart/form-data"' : "", $this->stub);
+
+        dd($this->stub);
     }
 
     public function putInFile()

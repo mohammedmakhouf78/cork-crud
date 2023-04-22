@@ -23,7 +23,8 @@ class {model}Controller extends Controller
 
     public function create()
     {
-        return view('admin.pages.{model_lower}.create');
+        {relation}
+        return view('admin.pages.{model_lower}.create',compact({compact}));
     }
 
     public function store(StoreRequest $request)
@@ -36,7 +37,8 @@ class {model}Controller extends Controller
 
     public function edit({model} ${model_lower})
     {
-        return view('admin.pages.{model_lower}.edit', compact('{model_lower}'));
+        {relation}
+        return view('admin.pages.{model_lower}.edit', compact('{model_lower}',{compact}));
     }
 
     public function update(UpdateRequest $request, {model} ${model_lower})

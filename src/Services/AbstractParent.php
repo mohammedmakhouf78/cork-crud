@@ -12,6 +12,7 @@ abstract class AbstractParent
     protected $columns;
     protected $metaColumns;
     protected $tableName;
+    protected $relations;
 
     public function run(string $model, object $crudInfo)
     {
@@ -19,8 +20,9 @@ abstract class AbstractParent
         $this->modelLower = lcfirst($this->model);
         $this->hasImage = $crudInfo->hasImages;
         $this->columns = $crudInfo->columns;
-        $this->metaColumns = $crudInfo->metaColumns;
+        $this->metaColumns = $crudInfo->metaColumns ?? [];
         $this->tableName = $crudInfo->tableName;
+        $this->relations = $crudInfo->relations ?? [];
 
         $this->prepareStub();
         $this->putInFile();
@@ -29,6 +31,15 @@ abstract class AbstractParent
     public function setStub($stub)
     {
         $this->stub = $stub;
+    }
+
+    public function prepareRelationName(string $column)
+    {
+        $relationModel = str_replace("_id", '', $column);
+        $relationModel = str_replace("_", ' ', $relationModel);
+        $relationModel = ucwords($relationModel);
+        $relationModel = str_replace(" ", '', $relationModel);
+        return lcfirst($relationModel);
     }
 
     abstract function prepareStub();
