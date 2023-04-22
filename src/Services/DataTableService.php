@@ -19,7 +19,7 @@ class DataTableService extends AbstractParent
         $columnsData = [];
         $columnsData[] = [
             'name' => 'id',
-            'title' => trans('main.id'),
+            'title' => "trans('id')",
             'orderable' => true,
             'order' => 'ASC',
             'searchable' => true,
@@ -32,9 +32,10 @@ class DataTableService extends AbstractParent
 
             if ($column->type == "select") {
                 $relationName = $this->prepareRelationName($column->name);
+                $title = $this->replaceUpperWith($relationName, ' ');
                 $columnsData[] = [
                     'name' => $column->name,
-                    'title' => "trans('$column->name')",
+                    'title' => "trans('$title')",
                     'orderable' => $column->type == "image" ? false : true,
                     'searchable' => $column->type == "image" ? false : true,
                     'exact' => false,
@@ -44,9 +45,10 @@ class DataTableService extends AbstractParent
                     'view' => "admin.pages.{$this->modelLower}.datatable.{$relationName}"
                 ];
             } else {
+                $title = str_replace('_', " ", $column->name);
                 $columnsData[] = [
                     'name' => $column->name,
-                    'title' => "trans('$column->name')",
+                    'title' => "trans('$title')",
                     'orderable' => $column->type == "image" ? false : true,
                     'searchable' => $column->type == "image" ? false : true,
                     'exact' => false,
@@ -59,7 +61,7 @@ class DataTableService extends AbstractParent
 
             $columnsData[] = [
                 'name' => $column->name,
-                'title' => "'trans(\"$column->name\")'",
+                'title' => "trans('$column->name')",
                 'orderable' => $column->type == "image" ? false : true,
                 'searchable' => $column->type == "image" ? false : true,
                 'exact' => false,
@@ -83,13 +85,13 @@ class DataTableService extends AbstractParent
 
         $columnsData[] =  [
             'name' => 'edit',
-            'title' => trans('main.edit'),
+            'title' => "trans('edit')",
             'type' => 'edit'
         ];
 
         $columnsData[] =  [
             'name' => 'destroy',
-            'title' => trans('main.destroy'),
+            'title' => "trans('destroy')",
             'type' => 'destroy'
         ];
 

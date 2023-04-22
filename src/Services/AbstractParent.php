@@ -41,6 +41,10 @@ abstract class AbstractParent
         $relationModel = str_replace(" ", '', $relationModel);
         return lcfirst($relationModel);
     }
+    public function replaceUpperWith(string $word, string $rep)
+    {
+        return preg_replace('/([A-Z])/', $rep . '$1', $word);
+    }
 
     abstract function prepareStub();
     abstract function putInFile();
