@@ -86,11 +86,13 @@ class DataTableService extends AbstractParent
             'type' => 'destroy'
         ];
 
+
         $columnsData = var_export($columnsData, true);
 
-        // foreach ($this->columns as $column) {
-        //     $columnsData = str_replace("'main.$column->name'", "trans(\"main.$column->name\")", $columnsData);
-        // }
+
+        $columnsData = preg_replace_callback("/'trans\(.*\)'/", function ($match) {
+            return trim($match[0], "'");
+        }, $columnsData);
 
 
 
