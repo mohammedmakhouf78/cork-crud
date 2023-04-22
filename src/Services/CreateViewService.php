@@ -82,7 +82,7 @@ class CreateViewService extends AbstractParent
                                 <option value=""> </option>
                                 @foreach(\${$relationVariable}Collection as \${$relationVariable})
                                 <option value="{{ \${$relationVariable}->$selectVal }}" 
-                                {{old('$column->name') ==  \${$relationVariable}->$selectVal : "selected" : "" }}> 
+                                {{old('$column->name') ==  \${$relationVariable}->$selectVal ? "selected" : "" }}> 
                                     {{ \${$relationVariable}->$selectDis }}
                                 </option>
                                 @endforeach

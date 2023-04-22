@@ -84,7 +84,7 @@ class EditViewService extends AbstractParent
                                 <option value=""> </option>
                                 @foreach(\${$relationVariable}Collection as \${$relationVariable})
                                 <option value="{{ \${$relationVariable}->$selectVal }}" 
-                                {{\${$this->modelLower}->$column->name ==  \${$relationVariable}->$selectVal : "selected" : "" }}> 
+                                {{\${$this->modelLower}->$column->name ==  \${$relationVariable}->$selectVal ? "selected" : "" }}> 
                                     {{ \${$relationVariable}->$selectDis }}
                                 </option>
                                 @endforeach
