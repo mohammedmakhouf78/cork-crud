@@ -15,6 +15,7 @@ class IndexViewService extends AbstractParent
 
     public function prepareStub()
     {
+        $tableName = preg_replace('/([A-Z])/', '-$1', $this->modelLower);
         $this->stub = str_replace("{model}", $this->model, $this->stub);
     }
 
