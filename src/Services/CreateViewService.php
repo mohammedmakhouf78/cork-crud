@@ -109,8 +109,6 @@ class CreateViewService extends AbstractParent
         $this->stub = str_replace("{model_lower}", $this->modelLower, $this->stub);
         $this->stub = str_replace("{inputs}", $createFields, $this->stub);
         $this->stub = str_replace("{enctype}", $this->hasImage ? 'enctype="multipart/form-data"' : "", $this->stub);
-
-        dd($this->stub);
     }
 
     public function putInFile()
