@@ -91,7 +91,9 @@ class DataTableService extends AbstractParent
 
 
         $columnsData = preg_replace_callback("/'trans\(.*\)'/", function ($match) {
-            return trim($match[0], "'");
+            $match = $match[0];
+            $match = str_replace("\'", "'", $match);
+            return trim($match, "'");
         }, $columnsData);
 
 
