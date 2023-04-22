@@ -76,7 +76,10 @@ class DataTableService extends AbstractParent
         if ($this->relations) {
             $withData .= "->with([";
             foreach ($this->relations as $relation) {
-                $withData .= "'$relation->name',";
+                $relationModel = $this->prepareRelationName($relation->name);
+                $withData .= "'$relationModel' => function(\$q){
+                    return \$q->forSelect()->get();
+                },\n";
             }
             $withData = rtrim($withData, ',');
             $withData .= "]);";
