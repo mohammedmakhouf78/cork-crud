@@ -15,8 +15,8 @@ class IndexViewService extends AbstractParent
 
     public function prepareStub()
     {
-        $tableName = $this->replaceUpperWith($this->modelLower, '-');
-        $this->stub = str_replace("{model}", $tableName, $this->stub);
+        $tableName = $this->replaceUpperWith("productDetail", '-');
+        $this->stub = str_replace("{datatable_name}", $tableName, $this->stub);
     }
 
     public function putInFile()

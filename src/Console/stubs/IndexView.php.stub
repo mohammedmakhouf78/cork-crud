@@ -27,7 +27,7 @@
                 <div class="my-3 text-start">
                     <a href="{{route('admin.{model_lower}.create')}}" class="btn btn-primary">{{ trans('create') }}</a>
                 </div>
-                <livewire:admin.{model_lower}-datatable />
+                <livewire:admin.{datatable_name}-datatable />
             </div>
         </div>
 

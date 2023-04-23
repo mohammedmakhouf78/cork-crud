@@ -43,7 +43,9 @@ abstract class AbstractParent
     }
     public function replaceUpperWith(string $word, string $rep)
     {
-        return preg_replace('/([A-Z])/', $rep . '$1', $word);
+        $data = preg_replace('/([A-Z])/', ' $1', $word);
+        $data = strtolower($data);
+        return str_replace(" ", "$rep", $data);
     }
 
     abstract function prepareStub();
