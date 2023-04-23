@@ -42,7 +42,7 @@ class MigrationService extends AbstractParent
             $relationsData .= <<<END
                 \$table->foreign('$relation->name')
                     ->references('id')
-                    ->on('sizes')
+                    ->on('$relation->table')
                     ->onDelete('CASCADE');\n
             END;
         }
