@@ -21,7 +21,7 @@ class EditViewService extends AbstractParent
                 $editFields .= "<div class='row mb-4'>\n";
                 $editFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}_ar') }}</label>
+                        <label>{{ trans('{$column->name}_ar') }}</label>
                         <input type="text" name="{$column->name}_ar" class="form-control" value="{{\${$this->modelLower}->getTranslation('$column->name', 'ar')}}">
                         @error('{$column->name}_ar')
                             <p class="text-danger my-1">{{\$message}}</p>
@@ -30,7 +30,7 @@ class EditViewService extends AbstractParent
                 END;
                 $editFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}_en') }}</label>
+                        <label>{{ trans('{$column->name}_en') }}</label>
                         <input type="text" name="{$column->name}_en" class="form-control" value="{{\${$this->modelLower}->getTranslation('$column->name', 'en')}}">
                         @error('{$column->name}_en')
                             <p class="text-danger my-1">{{\$message}}</p>
@@ -42,7 +42,7 @@ class EditViewService extends AbstractParent
                 $editFields .= "<div class='row mb-4'>\n";
                 $editFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}_ar') }}</label>
+                        <label>{{ trans('{$column->name}_ar') }}</label>
                         <textarea name="{$column->name}_ar" class="form-control">{{\${$this->modelLower}->getTranslation('$column->name', 'ar')}}</textarea>
                         @error('{$column->name}_ar')
                             <p class="text-danger my-1">{{\$message}}</p>
@@ -51,7 +51,7 @@ class EditViewService extends AbstractParent
                 END;
                 $editFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}_en') }}</label>
+                        <label>{{ trans('{$column->name}_en') }}</label>
                         <textarea name="{$column->name}_en" class="form-control">{{\${$this->modelLower}->getTranslation('$column->name', 'en')}}</textarea>
                         @error('{$column->name}_en')
                             <p class="text-danger my-1">{{\$message}}</p>
@@ -79,7 +79,7 @@ class EditViewService extends AbstractParent
                 $editFields .= <<<END
                     <div class="row mb-4">
                         <div class="col">
-                            <label>{{ trans('main.{$column->name}') }}</label>
+                            <label>{{ trans('{$column->name}') }}</label>
                             <select class="form-control" name="$column->name">
                                 <option value=""> </option>
                                 @foreach(\${$relationVariable}Collection as \${$relationVariable})
@@ -98,7 +98,7 @@ class EditViewService extends AbstractParent
             } else if ($column->type == "integer") {
                 $editFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}') }}</label>
+                        <label>{{ trans('{$column->name}') }}</label>
                         <input type="number" name="{$column->name}" class="form-control" value="{{\${$this->modelLower}->$column->name}}">
                         @error('{$column->name}')
                             <p class="text-danger my-1">{{\$message}}</p>

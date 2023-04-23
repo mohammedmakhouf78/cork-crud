@@ -20,7 +20,7 @@ class CreateViewService extends AbstractParent
                 $createFields .= "<div class='row mb-4'>\n";
                 $createFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}_ar') }}</label>
+                        <label>{{ trans('{$column->name}_ar') }}</label>
                         <input type="text" name="{$column->name}_ar" class="form-control" value="{{old('{$column->name}_ar')}}">
                         @error('{$column->name}_ar')
                             <p class="text-danger my-1">{{\$message}}</p>
@@ -29,7 +29,7 @@ class CreateViewService extends AbstractParent
                 END;
                 $createFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}_en') }}</label>
+                        <label>{{ trans('{$column->name}_en') }}</label>
                         <input type="text" name="{$column->name}_en" class="form-control" value="{{old('{$column->name}_en')}}">
                         @error('{$column->name}_en')
                             <p class="text-danger my-1">{{\$message}}</p>
@@ -41,7 +41,7 @@ class CreateViewService extends AbstractParent
                 $createFields .= "<div class='row mb-4'>\n";
                 $createFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}_ar') }}</label>
+                        <label>{{ trans('{$column->name}_ar') }}</label>
                         <textarea name="{$column->name}_ar" class="form-control">{{old('{$column->name}_ar')}}</textarea>
                         @error('{$column->name}_ar')
                             <p class="text-danger my-1">{{\$message}}</p>
@@ -50,7 +50,7 @@ class CreateViewService extends AbstractParent
                 END;
                 $createFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}_en') }}</label>
+                        <label>{{ trans('{$column->name}_en') }}</label>
                         <textarea name="{$column->name}_en" class="form-control">{{old('{$column->name}_en')}}</textarea>
                         @error('{$column->name}_en')
                             <p class="text-danger my-1">{{\$message}}</p>
@@ -77,7 +77,7 @@ class CreateViewService extends AbstractParent
                 $createFields .= <<<END
                     <div class="row mb-4">
                         <div class="col">
-                            <label>{{ trans('main.{$column->name}') }}</label>
+                            <label>{{ trans('{$column->name}') }}</label>
                             <select class="form-control" name="$column->name">
                                 <option value=""> </option>
                                 @foreach(\${$relationVariable}Collection as \${$relationVariable})
@@ -96,7 +96,7 @@ class CreateViewService extends AbstractParent
             } else if ($column->type == "integer") {
                 $createFields .= <<<END
                     <div class="col">
-                        <label>{{ trans('main.{$column->name}') }}</label>
+                        <label>{{ trans('{$column->name}') }}</label>
                         <input type="number" name="{$column->name}" class="form-control" value="{{old('$column->name')}}">
                         @error('{$column->name}')
                             <p class="text-danger my-1">{{\$message}}</p>
